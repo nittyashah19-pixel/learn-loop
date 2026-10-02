@@ -71,6 +71,7 @@ def init_db():
             )
     c.commit()
     c.close()
+    init_db()
 
 @app.context_processor
 def inject():
@@ -234,7 +235,7 @@ def pay(tutor_id):
     if request.method == "POST":
         flash(f"Payment demo completed for {t['name']}. Add a payment gateway to accept real payments.")
         return redirect(url_for("tutor", tutor_id=tutor_id))
-    return render_template("payment.html", tutor=tutor)
+    return render_template("payment.html", tutor=t)
 
 @app.route("/search")
 def search():
