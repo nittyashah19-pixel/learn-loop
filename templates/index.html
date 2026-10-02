@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}LEARN LOOP — Learn. Share. Grow.{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow"><span>✦</span> SKILL EXCHANGE, REIMAGINED</div>
+    <h1>What you know<br>can <em>change</em><br>someone's world.</h1>
+    <p>LEARN LOOP connects curious people with peers and verified tutors — so learning becomes a two-way experience.</p>
+    <div class="hero-actions"><a class="btn dark" href="{{ url_for('signup') }}">Start your loop <span>→</span></a><a class="text-link" href="{{ url_for('skills_page') }}">Explore all skills ↗</a></div>
+    <div class="mini-proof"><span class="avatar-row"><b>A</b><b>M</b><b>R</b><b>+</b></span><span><strong>Learn together.</strong><br>Teach what you love.</span></div>
+  </div>
+  <div class="hero-art">
+    <div class="blob blob-one"></div><div class="blob blob-two"></div>
+    <div class="orbit-card"><span>LEARN</span><div class="orbit-line"></div><span>SHARE</span><div class="orbit-line"></div><span>GROW</span></div>
+    <div class="floating-card fc-one"><span>🐍</span><b>Python</b><small>12 learners</small></div>
+    <div class="floating-card fc-two"><span>📷</span><b>Photography</b><small>8 tutors</small></div>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="section-label">THE LOOP</div><h2>Learning works better<br><em>when it goes both ways.</em></h2>
+  <div class="three">
+    <article><span class="num">01</span><h3>Choose</h3><p>Tell us what you want to learn and what you can teach.</p></article>
+    <article><span class="num">02</span><h3>Connect</h3><p>Find peers for free exchanges or book a verified tutor.</p></article>
+    <article><span class="num">03</span><h3>Grow</h3><p>Practice together, share feedback and keep the loop moving.</p></article>
+  </div>
+</section>
+
+<section class="section tinted">
+  <div class="section-top"><div><div class="section-label">POPULAR SKILLS</div><h2>Something for every curious mind.</h2></div><a class="text-link" href="{{ url_for('skills_page') }}">View all ↗</a></div>
+  <div class="skill-grid">
+  {% for name,cat,icon in skills %}
+    <a class="skill-tile" href="{{ url_for('search', q=name) }}"><span>{{ icon }}</span><div><b>{{ name }}</b><small>{{ cat }}</small></div><i>↗</i></a>
+  {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-label">VERIFIED TUTORS</div><h2>Learn directly from people<br>who <em>love their craft.</em></h2>
+  <div class="tutor-grid">
+  {% for t in tutors[:6] %}
+    <article class="tutor-card">
+      <div class="tutor-top"><div class="tutor-avatar">{{ t['initial'] }}</div><span class="verified">✓ VERIFIED</span></div>
+      <h3>{{ t['name'] }}</h3><div class="tutor-skill">{{ t['skill'] }}</div><p>{{ t['bio'] }}</p>
+      <div class="tutor-bottom"><b>{{ t['price'] }}</b><a href="{{ url_for('tutor', tutor_id=t['id']) }}">View profile →</a></div>
+    </article>
+  {% endfor %}
+  </div>
+</section>
+
+<section class="search-banner">
+  <div><div class="section-label">CAN'T FIND YOUR SKILL?</div><h2>Search the whole loop.</h2><p>Find a verified tutor or another learner who already knows it.</p></div>
+  <form action="{{ url_for('search') }}"><input name="q" placeholder="Try “graphic design”, “guitar”, “Excel”…"><button>Search ↗</button></form>
+</section>
+{% endblock %}

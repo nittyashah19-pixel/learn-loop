@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Search — LEARN LOOP{% endblock %}
+{% block content %}
+<section class="page-hero small"><div class="section-label">SEARCH RESULTS</div><h1>Results for<br><em>“{{q}}”</em></h1></section>
+<div class="section compact"><div class="section-label">VERIFIED TUTORS</div><div class="tutor-grid">
+{% for t in tutors %}<article class="tutor-card"><div class="tutor-top"><div class="tutor-avatar">{{t['initial']}}</div><span class="verified">✓ VERIFIED</span></div><h3>{{t['name']}}</h3><div class="tutor-skill">{{t['skill']}}</div><p>{{t['bio']}}</p><div class="tutor-bottom"><b>{{t['price']}}</b><a href="{{url_for('tutor',tutor_id=t['id'])}}">View →</a></div></article>{% else %}<p class="muted">No verified tutor matches.</p>{% endfor %}
+</div></div>
+<div class="section compact"><div class="section-label">COMMUNITY MEMBERS</div><h2>People who know it</h2><div class="person-grid">
+{% for u in users %}<article class="person-card"><div class="person-head"><div class="tutor-avatar">{{u['name'][0]|upper}}</div><h3>{{u['name']}}</h3></div><p>{{u['bio'] or 'Learn Loop member'}}</p><div class="chips">{% for s in (u['teach'] or '').split(',') if s.strip() %}<span>{{s.strip()}}</span>{% endfor %}</div>{% if session.get('user_id') and u['id'] != session.get('user_id') %}<form method="POST" action="{{url_for('connect',user_id=u['id'])}}"><input type="hidden" name="skill" value="{{q}}"><button class="btn outline full">Connect for free →</button></form>{% endif %}</article>{% else %}<p class="muted">No community member has listed this skill yet.</p>{% endfor %}
+</div></div>
+{% endblock %}

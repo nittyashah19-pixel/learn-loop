@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}My Profile — LEARN LOOP{% endblock %}
+{% block content %}
+<section class="page-hero small"><div class="section-label">YOUR LOOP</div><h1>Make your profile<br><em>feel like you.</em></h1></section>
+<div class="form-card"><form method="POST">
+<label>Skills I can teach <small>Use commas between skills</small></label><input name="teach" value="{{user['teach'] or ''}}" placeholder="Python, Canva, Excel">
+<label>Skills I want to learn <small>Use commas between skills</small></label><input name="learn" value="{{user['learn'] or ''}}" placeholder="Photography, Guitar, Baking">
+<label>About me</label><textarea name="bio" rows="5" placeholder="Tell people what you're curious about...">{{user['bio'] or ''}}</textarea>
+<button class="btn dark">Save my profile →</button>
+</form></div>
+{% endblock %}

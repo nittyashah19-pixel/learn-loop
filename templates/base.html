@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}LEARN LOOP{% endblock %}</title>
+<meta name="description" content="LEARN LOOP — a beautiful student skill exchange community.">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="{{ url_for('home') }}" aria-label="Learn Loop home">
+    <span class="brand-mark">↻</span>
+    <span><b>LEARN</b><i>LOOP</i><small>learn • share • grow</small></span>
+  </a>
+  <div class="nav-links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('skills_page') }}">Skills</a>
+    {% if session.get('user_id') %}
+      <a href="{{ url_for('discover') }}">Discover</a>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('profile') }}">Profile</a>
+      <a class="nav-pill" href="{{ url_for('logout') }}">Log out</a>
+    {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+      <a class="nav-pill" href="{{ url_for('signup') }}">Join the loop</a>
+    {% endif %}
+  </div>
+</nav>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}<div class="toast">{{ messages[0] }}</div>{% endif %}
+{% endwith %}
+
+<main>{% block content %}{% endblock %}</main>
+<footer>
+  <div class="footer-brand">LEARN<span>LOOP</span></div>
+  <p>A community where everyone can be both a learner and a teacher.</p>
+  <div class="footer-links"><a href="{{ url_for('skills_page') }}">Explore skills</a><a href="{{ url_for('signup') }}">Join</a><a href="{{ url_for('login') }}">Login</a></div>
+  <small>© 2026 LEARN LOOP</small>
+</footer>
+</body>
+</html>

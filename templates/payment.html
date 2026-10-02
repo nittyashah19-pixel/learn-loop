@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Book {{tutor['name']}} — LEARN LOOP{% endblock %}
+{% block content %}
+<div class="payment">
+<div class="section-label">VERIFIED TUTOR SESSION</div><h1>Book with<br><em>{{tutor['name']}}.</em></h1>
+<div class="pay-card"><div><span>{{tutor['skill']}}</span><h2>{{tutor['price']}}</h2><p>One learning session with a verified Learn Loop tutor.</p></div><form method="POST"><button class="btn dark full">Continue to payment →</button></form><small class="muted">Demo checkout is enabled in this starter. For live payments, connect Stripe or Razorpay using Render environment variables.</small></div>
+</div>
+{% endblock %}

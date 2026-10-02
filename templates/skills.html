@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Skills — LEARN LOOP{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="section-label">EXPLORE</div><h1>Skills that start<br><em>new loops.</em></h1><p>Learn from verified tutors or find peers who can exchange skills with you for free.</p></section>
+<div class="skill-grid large">
+{% for name,cat,icon in skills %}
+<a class="skill-tile" href="{{ url_for('search', q=name) }}"><span>{{ icon }}</span><div><b>{{ name }}</b><small>{{ cat }}</small></div><i>Explore ↗</i></a>
+{% endfor %}
+</div>
+<section class="section compact"><div class="section-top"><div><div class="section-label">OUR TUTORS</div><h2>Verified people, real skills.</h2></div></div>
+<div class="tutor-grid">{% for t in tutors %}<article class="tutor-card"><div class="tutor-top"><div class="tutor-avatar">{{t['initial']}}</div><span class="verified">✓ VERIFIED</span></div><h3>{{t['name']}}</h3><div class="tutor-skill">{{t['skill']}}</div><p>{{t['bio']}}</p><div class="tutor-bottom"><b>{{t['price']}}</b><a href="{{url_for('tutor',tutor_id=t['id'])}}">View profile →</a></div></article>{% endfor %}</div></section>
+{% endblock %}

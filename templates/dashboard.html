@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — LEARN LOOP{% endblock %}
+{% block content %}
+<section class="page-hero small"><div class="section-label">YOUR DASHBOARD</div><h1>Hi {{user['name'].split()[0]}}.<br><em>Keep learning.</em></h1></section>
+<div class="dashboard-cards"><div><span>TEACH</span><h3>{{user['teach'] or 'Add skills'}}</h3><a href="{{url_for('profile')}}">Edit profile →</a></div><div><span>LEARN</span><h3>{{user['learn'] or 'Add skills'}}</h3><a href="{{url_for('profile')}}">Edit profile →</a></div><div><span>EXCHANGE</span><h3>Free with peers</h3><a href="{{url_for('discover')}}">Find people →</a></div></div>
+<section class="section compact"><div class="section-label">INCOMING</div><h2>Connection requests</h2>
+{% for r in incoming %}<div class="request-row"><div><b>{{r['sender_name']}}</b> wants to exchange <strong>{{r['skill']}}</strong></div><span>{{r['status']}}</span>{% if r['status']=='Pending' %}<a href="{{url_for('connection_action',connection_id=r['id'],action='accept')}}">Accept</a><a href="{{url_for('connection_action',connection_id=r['id'],action='decline')}}">Decline</a>{% endif %}</div>{% else %}<p class="muted">No incoming requests yet. Explore people to start a free exchange.</p>{% endfor %}
+<div class="section-label top-gap">SENT</div>
+{% for r in outgoing %}<div class="request-row"><div>To <b>{{r['receiver_name']}}</b> · {{r['skill']}}</div><span>{{r['status']}}</span></div>{% else %}<p class="muted">No requests sent yet.</p>{% endfor %}
+</section>
+{% endblock %}

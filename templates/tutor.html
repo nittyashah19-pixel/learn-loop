@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{tutor['name']}} — LEARN LOOP{% endblock %}
+{% block content %}
+<div class="tutor-detail">
+<div class="detail-avatar">{{tutor['initial']}}</div>
+<div class="section-label">VERIFIED TUTOR · {{tutor['skill']}}</div>
+<h1>{{tutor['name']}} <span class="verified big">✓ VERIFIED</span></h1>
+<p class="detail-bio">{{tutor['bio']}}</p>
+<div class="detail-box"><div><small>SESSION RATE</small><b>{{tutor['price']}}</b></div><div><small>CONTACT</small><b>{{tutor['email']}}</b></div></div>
+<div class="detail-actions"><a class="btn dark" href="{{url_for('pay',tutor_id=tutor['id'])}}">Book & pay →</a><a class="btn outline" href="{{url_for('skills_page')}}">← All skills</a></div>
+<p class="note">Payments are for verified tutors. Exchanges directly between users are free.</p>
+</div>
+{% endblock %}

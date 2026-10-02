@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Discover — LEARN LOOP{% endblock %}
+{% block content %}
+<section class="page-hero small"><div class="section-label">FIND A PERSON</div><h1>Someone knows<br><em>what you need.</em></h1><p>Search skills, names or interests. Peer-to-peer exchanges are always free.</p>
+<form class="big-search" action="{{url_for('discover')}}"><input name="q" value="{{q}}" placeholder="Search for a skill or person…"><button>Search ↗</button></form></section>
+<div class="person-grid">
+{% for u in users %}<article class="person-card"><div class="person-head"><div class="tutor-avatar">{{u['name'][0]|upper}}</div><div><h3>{{u['name']}}</h3>{% if u['verified'] %}<span class="verified">✓ VERIFIED</span>{% endif %}</div></div><p>{{u['bio'] or 'A Learn Loop member ready to exchange skills.'}}</p><div class="chips">{% for s in (u['teach'] or '').split(',') if s.strip() %}<span>{{s.strip()}}</span>{% endfor %}</div><form method="POST" action="{{url_for('connect',user_id=u['id'])}}"><input type="hidden" name="skill" value="{{(u['teach'] or 'Skill exchange').split(',')[0].strip()}}"><button class="btn outline full">Connect for free →</button></form></article>{% else %}<div class="empty"><h2>No people found.</h2><p>Try another skill, or be the first person to add it to your profile.</p></div>{% endfor %}
+</div>
+{% endblock %}
